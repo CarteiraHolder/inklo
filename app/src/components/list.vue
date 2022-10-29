@@ -4,7 +4,7 @@
             <li 
                 v-for="dev in GitDevs"
                 :key="dev.login"
-                class="list-group-item justify-content-between align-items-start"
+                class="list-group-item justify-content-between align-items-start mouseClick"
                 @click="router.push(`/DevInfo/${dev.login}`)" 
             >
                 <div class="row">
