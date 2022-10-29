@@ -10,7 +10,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="dev, index in GitDevs" :key="dev.login" >
+            <tr 
+                v-for="dev, index in GitDevs" 
+                :key="dev.login" 
+                @click="router.push(`/DevInfo/${dev.login}`)" 
+                class="mouseClick"
+            >
                 <th scope="row">{{index + 1}}</th>
                 <td>
                     <img :src="dev.avatar_url" class="rounded-circle float-start img-fluid img" alt="Avatar"/>
@@ -24,10 +29,13 @@
 </template>
 
 <script setup>
-import {computed } from 'vue'
+import { computed } from 'vue'
 
 //STORE
 import storeApiGit from '../store/apiGit'
+
+//ROUTER
+import router from '../router'
 
 
 const GitDevs = computed(() => {
@@ -51,5 +59,7 @@ function convertDateToPtBr(date) {
     .img{
         width: 35px;
     }
-
+    .mouseClick{
+        cursor: pointer;
+    }
 </style>

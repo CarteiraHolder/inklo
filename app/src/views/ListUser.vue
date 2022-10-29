@@ -27,7 +27,7 @@ import TableDevs from '../components/table.vue'
 import storeApiGit from '../store/apiGit'
 
 
-storeApiGit.dispatch("getUsers")
+storeApiGit.dispatch("getAllUsers")
 </script>
 
 <style>

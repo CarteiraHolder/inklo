@@ -12,18 +12,25 @@ const store = createStore({
     },
     getters: {},
     actions: {
-        getUsers({ commit }) {
-            this.state.listDevs.forEach(element => {
-                axios.get(`users/${element}`)
-                    .then(({ data }) => {
-                        console.log(data);
-                        this.state.listGitDevs.push(data)
-                    })
+        getAllUsers({ commit }) {
+            this.state.listGitDevs = []
+            this.state.listDevs.forEach(async element => {
+                this.state.listGitDevs.push(
+                    await this.dispatch('getUser', element)
+                )
             });
-
+        },
+        getUser({ commit }, dev) {
+            return axios.get(`users/${dev}`)
+                .then(({ data }) => data)
+        },
+        getReposUser({ commit }, dev) {
+            return axios.get(`users/${dev}/repos`)
+                .then(({ data }) => data)
         },
     },
     mutations: {
+
     },
     modules: {},
 })
