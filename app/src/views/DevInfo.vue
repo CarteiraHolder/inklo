@@ -3,24 +3,28 @@
         <div class="card mb-3">
             <!-- <img :src="dev.avatar_url" class="card-img-top" alt="avatar"> -->
             <div class="card-body">
-                <img :src="dev.avatar_url" class="rounded-circle float-start img-fluid img text-center m-2" alt="Avatar"/>
-                <h5 class="card-title">{{dev.name}}</h5>
-                <p>{{dev.bio}}</p>
-                <a :href="dev.html_url" target="_blank">GitHub</a>
-                <div class="row text-center mt-3">
-                    <div class="col d-grid gap-2">
-                        <button @click="router.back" type="button" class="btn btn-secondary">Voltar</button>
-                    </div>
-                    <div class="col d-grid gap-2">
-                        <button type="button" class="btn btn-success">Salvar</button>
+                <div v-if="dev != null">
+                    <img :src="dev.avatar_url" class="rounded-circle float-start img-fluid img text-center m-2" alt="Avatar"/>
+                    <h5 class="card-title">{{dev.name}}</h5>
+                    <p>{{dev.bio}}</p>
+                    <a :href="dev.html_url" target="_blank">GitHub</a>
+                    <div class="row text-center mt-3">
+                        <div class="col d-grid gap-2">
+                            <button @click="router.back" type="button" class="btn btn-secondary">Voltar</button>
+                        </div>
+                        <div class="col d-grid gap-2">
+                            <button type="button" class="btn btn-success">Salvar</button>
+                        </div>
                     </div>
                 </div>
+
+                <placeholders v-else></placeholders>
             </div>
         </div>
 
         <h3 class="text-center m-4">Projetos</h3>
         <div class="card mb-3">
-            <ol class="list-group ">
+            <ol v-if="repos.length > 0" class="list-group ">
                 <li 
                     v-for="repo in repos"
                     :key="repo.id"
@@ -37,7 +41,9 @@
                     <span class="badge bg-primary rounded-pill">{{repo.language}}</span>
                 </li>
             </ol>
+            <placeholders class="m-4" v-else></placeholders>
         </div>
+        
     </div>
   
 </template>
@@ -52,8 +58,11 @@ import storeApiGit from '../store/apiGit'
 import router from '../router'
 import { useRoute } from 'vue-router'
 
+//COMPONENT
+import placeholders from '../components/placeholders.vue';
+
 const route = useRoute()
-const dev = ref([]);
+const dev = ref(null);
 const repos = ref([]);
 
 onMounted(async () => {

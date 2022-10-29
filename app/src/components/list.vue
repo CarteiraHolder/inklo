@@ -1,28 +1,29 @@
 <template>
     <div class="card mb-3">
-            <ol class="list-group">
-                <li 
-                    v-for="dev in GitDevs"
-                    :key="dev.login"
-                    class="list-group-item justify-content-between align-items-start"
-                    @click="router.push(`/DevInfo/${dev.login}`)" 
-                >
-                    <div class="row">
-                        <div class="col-md-1 col-2">
-                            <img :src="dev.avatar_url" class="rounded-circle float-start img-fluid m-2" alt="Avatar"/>                            
-                        </div>
-                        <div class="col-md-10 col-8">
-                            <h4 class="card-title">{{dev.name}}</h4>
-                            <p>{{convertDateToPtBr(dev.created_at)}}</p>
-                        </div>
-                        <div class="col-md-1 col-2 text-end align-middle ">
-                            <br>
-                            <span class="badge bg-primary rounded-pill fs-6">{{dev.public_repos}}</span>
-                        </div>
+        <ol v-if="GitDevs.length > 0" class="list-group">
+            <li 
+                v-for="dev in GitDevs"
+                :key="dev.login"
+                class="list-group-item justify-content-between align-items-start"
+                @click="router.push(`/DevInfo/${dev.login}`)" 
+            >
+                <div class="row">
+                    <div class="col-md-1 col-2">
+                        <img :src="dev.avatar_url" class="rounded-circle float-start img-fluid m-2" alt="Avatar"/>                            
                     </div>
-                </li>
-            </ol>
-        </div>
+                    <div class="col-md-10 col-8">
+                        <h4 class="card-title">{{dev.name}}</h4>
+                        <p>{{convertDateToPtBr(dev.created_at)}}</p>
+                    </div>
+                    <div class="col-md-1 col-2 text-end align-middle ">
+                        <br>
+                        <span class="badge bg-primary rounded-pill fs-6">{{dev.public_repos}}</span>
+                    </div>
+                </div>
+            </li>
+        </ol>
+        <placeholders class="m-4" v-else></placeholders>
+    </div>
 </template>
 
 <script setup>
@@ -33,6 +34,9 @@ import storeApiGit from '../store/apiGit'
 
 //ROUTER
 import router from '../router'
+
+//COMPONENT
+import placeholders from './placeholders.vue';
 
 
 const GitDevs = computed(() => {
