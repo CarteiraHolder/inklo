@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import axios from '../libs/Axios'
+import axios from '../libs/AxiosGit'
 
 // Create a new store instance.
 const store = createStore({

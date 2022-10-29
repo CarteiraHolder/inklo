@@ -1,11 +1,20 @@
 <template>
-    <div class="m-3">
+    <div>
         <div class="card mb-3">
-            <img :src="dev.avatar_url" class="card-img-top" alt="avatar">
+            <!-- <img :src="dev.avatar_url" class="card-img-top" alt="avatar"> -->
             <div class="card-body">
+                <img :src="dev.avatar_url" class="rounded-circle float-start img-fluid img text-center m-2" alt="Avatar"/>
                 <h5 class="card-title">{{dev.name}}</h5>
                 <p>{{dev.bio}}</p>
                 <a :href="dev.html_url" target="_blank">GitHub</a>
+                <div class="row text-center mt-3">
+                    <div class="col d-grid gap-2">
+                        <button @click="router.back" type="button" class="btn btn-secondary">Voltar</button>
+                    </div>
+                    <div class="col d-grid gap-2">
+                        <button type="button" class="btn btn-success">Salvar</button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -40,6 +49,7 @@ import { onMounted, ref } from 'vue'
 import storeApiGit from '../store/apiGit'
 
 //ROUTER
+import router from '../router'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
@@ -47,9 +57,10 @@ const dev = ref([]);
 const repos = ref([]);
 
 onMounted(async () => {
-    console.log(await storeApiGit.dispatch("getUser", route.params.login));
-    console.log(await storeApiGit.dispatch("getReposUser", route.params.login));
-    dev.value = await storeApiGit.dispatch("getUser", route.params.login)
+    dev.value = storeApiGit.state.listGitDevs.length > 0 ?
+        storeApiGit.state.listGitDevs.find(dev => dev.login === route.params.login) :
+        await storeApiGit.dispatch("getUser", route.params.login)
+
     repos.value = await storeApiGit.dispatch("getReposUser", route.params.login)
 })
 
@@ -61,5 +72,8 @@ function convertDateToPtBr(date) {
 </script>
 
 <style>
+.img{
+     width: 75px;
+}
 
 </style>

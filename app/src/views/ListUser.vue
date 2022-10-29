@@ -1,8 +1,8 @@
 <template>
-    <div class="p-2">
+    <div>
         <div class="card">
             <div class="card-body">
-                <div class="mb-3">
+                <div>
                     <label for="fild" class="form-label">Filtro</label>
                     <input 
                         type="text" 
@@ -12,7 +12,7 @@
                         placeholder="Digite o nome do usuário para realziar o filtro">
                 </div>
                 <div class="mt-3">
-                    <TableDevs></TableDevs>
+                    <listDev></listDev>
                 </div>
             </div>
         </div>
@@ -21,7 +21,7 @@
 
 <script setup>
 //COMPONENTS
-import TableDevs from '../components/table.vue'
+import listDev from '../components/list.vue'
 
 //STORE
 import storeApiGit from '../store/apiGit'
