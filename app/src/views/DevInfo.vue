@@ -7,13 +7,17 @@
                     <img :src="dev.avatar_url" class="rounded-circle float-start img-fluid img text-center m-2" alt="Avatar"/>
                     <h5 class="card-title">{{dev.name}}</h5>
                     <p>{{dev.bio}}</p>
-                    <a :href="dev.html_url" target="_blank">GitHub</a>
+                    <a :href="dev.html_url" target="_blank">Acessar GitHub</a>
                     <div class="row text-center mt-3">
                         <div class="col d-grid gap-2">
                             <button @click="router.back" type="button" class="btn btn-secondary">Voltar</button>
                         </div>
                         <div class="col d-grid gap-2">
-                            <button type="button" class="btn btn-success">Salvar</button>
+                            <button 
+                                @click="storeMyApi.dispatch('getJson', route.params.login)" 
+                                type="button" 
+                                class="btn btn-success"
+                            >Salvar</button>
                         </div>
                     </div>
                 </div>
@@ -53,6 +57,7 @@ import { onMounted, ref } from 'vue'
 
 //STORE
 import storeApiGit from '../store/apiGit'
+import storeMyApi from '../store/myApi'
 
 //ROUTER
 import router from '../router'

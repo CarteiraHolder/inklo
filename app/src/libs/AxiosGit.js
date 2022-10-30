@@ -5,7 +5,7 @@ const axiosClient = axios.create({
 })
 
 axiosClient.interceptors.request.use(config => {
-    config.headers.Authorization = `Bearer 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`
+    config.headers.Authorization = `Bearer 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`
     return config
 })
 
