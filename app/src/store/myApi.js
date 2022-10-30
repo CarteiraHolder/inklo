@@ -1,5 +1,4 @@
 import { createStore } from 'vuex'
-import axios from '../libs/AxiosMyApi'
 
 // Create a new store instance.
 const store = createStore({
@@ -7,8 +6,7 @@ const store = createStore({
     getters: {},
     actions: {
         getJson({ commit }, login) {
-            return axios.get(`salvar-local/${login}`)
-                .then(({ data }) => console.log(data))
+            window.location.assign(`http://127.0.0.1:8000/api/salvar-local/${login}`)
         },
     },
     mutations: {

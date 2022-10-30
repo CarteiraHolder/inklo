@@ -15,11 +15,11 @@ class GitService  implements GitInterface, GitDomain
 
     public function __construct(Client $httpClient) {
         $this->httpClient = $httpClient;
-        $this->httpHeaders = [ 
-            'headers' => [ 
-                'Authorization' => "Bearer " . self::API_KEY 
-            ] 
-        ];
+        // $this->httpHeaders = [ 
+        //     'headers' => [ 
+        //         'Authorization' => "Bearer " . self::API_KEY 
+        //     ] 
+        // ];
     }
 
     public function call(string $login) : array
@@ -39,7 +39,8 @@ class GitService  implements GitInterface, GitDomain
     {
         $url = self::URL . $login;
         try {
-            $request = $this->httpClient->get($url, $this->httpHeaders);
+            $request = $this->httpClient->get($url);
+            // $request = $this->httpClient->get($url, $this->httpHeaders);
             $response = json_decode($request->getBody()->getContents());
         } catch (\Throwable $th) {
             return json_encode(["name" => ""]);
@@ -52,7 +53,8 @@ class GitService  implements GitInterface, GitDomain
     {
         $url = self::URL . $login . self::URL_REPOS;
         try {
-            $request = $this->httpClient->get($url, $this->httpHeaders);
+            $request = $this->httpClient->get($url);
+            // $request = $this->httpClient->get($url, $this->httpHeaders);
             $response = json_decode($request->getBody()->getContents());
         } catch (\Throwable $th) {
             return [];
